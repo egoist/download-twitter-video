@@ -116,7 +116,7 @@ export default function Page() {
           </a>
         </footer>
 
-        <GithubCorner href="https://github.com/egoit/download-twitter-video" />
+        <GithubCorner href="https://github.com/egoist/download-twitter-video" />
       </div>
     </>
   )
