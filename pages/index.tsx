@@ -45,6 +45,16 @@ export default function Page() {
       <NextSeo
         title="Download Twitter Video"
         description="The easiest way to download any Twitter video, just enter the Tweet URL!"
+        openGraph={{
+          images: [
+            {
+              url: "https://download-twitter-video.egoist.dev/og.png",
+            },
+          ],
+        }}
+        twitter={{
+          cardType: "summary_large_image",
+        }}
       />
       <div className="max-w-xl mx-auto p-5 py-20">
         <header className="text-center">
