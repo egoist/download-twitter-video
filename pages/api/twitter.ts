@@ -1,5 +1,11 @@
+import fs from "fs"
 import { NextApiHandler, NextApiResponse } from "next"
-import { load } from "cheerio"
+import { execa } from "execa"
+import path from "path"
+
+if (!fs.existsSync(path.resolve("bin/yt-dlp"))) {
+  throw new Error("yt-dlp not found")
+}
 
 const sendError = (res: NextApiResponse, msg: string) => {
   res.status(500).send({
@@ -16,35 +22,20 @@ const handler: NextApiHandler = async (req, res) => {
 
   const parsedUrl = new URL(url)
 
-  if (parsedUrl.hostname !== "twitter.com") {
-    return sendError(res, "not a twitter url")
+  const ps = await execa(path.resolve("bin/yt-dlp"), [
+    parsedUrl.href,
+    "--dump-json",
+    "--no-check-certificates",
+    "--no-warnings",
+  ])
+
+  if (ps.failed) {
+    return sendError(res, ps.stderr || "error")
   }
-
-  parsedUrl.hostname = "vxtwitter.com"
-  const response = await fetch(parsedUrl, {
-    headers: {
-      "User-Agent": "TelegramBot (like TwitterBot)",
-    },
-  })
-  if (!response.ok) {
-    return sendError(res, `failed to fetch tweet: ${response.status}`)
-  }
-
-  const html = await response.text()
-  const $ = load(html)
-
-  const getMetaContent = (name: string) => {
-    const value =
-      $(`meta[name="twitter:${name}"]`).attr("content") ||
-      $(`meta[property="og:${name}"]`).attr("content")
-    return value
-  }
-
-  const video = getMetaContent("video")
 
   res.json({
     data: {
-      video,
+      videos: ps.stdout.split("\n").map((str: string) => JSON.parse(str).url),
     },
   })
 }

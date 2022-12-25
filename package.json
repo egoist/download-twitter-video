@@ -1,5 +1,6 @@
 {
   "private": true,
+  "type": "module",
   "name": "download-twitter-video",
   "version": "1.0.0",
   "description": "",
@@ -7,14 +8,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "next",
-    "build": "next build"
+    "build": "next build",
+    "download-yt-dlp": "node scripts/download-yt-dlp.js",
+    "postinstall": "npm run download-yt-dlp"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cheerio": "1.0.0-rc.12",
+    "clsx": "^1.2.1",
     "downloadjs": "^1.4.7",
+    "execa": "^6.1.0",
     "next": "^13.0.6",
     "next-seo": "^5.15.0",
     "react": "^18.2.0",
@@ -27,6 +32,7 @@
     "@types/node": "^18.11.12",
     "@types/react": "^18.0.26",
     "autoprefixer": "^10.4.13",
+    "node-fetch": "^3.3.0",
     "tailwindcss": "^3.2.4",
     "typescript": "^4.9.4"
   }
