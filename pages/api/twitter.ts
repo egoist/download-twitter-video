@@ -35,7 +35,10 @@ const handler: NextApiHandler = async (req, res) => {
 
   res.json({
     data: {
-      videos: ps.stdout.split("\n").map((str: string) => JSON.parse(str).url),
+      videos: ps.stdout
+        .split("\n")
+        .map((str: string) => JSON.parse(str).url)
+        .filter(Boolean),
     },
   })
 }
