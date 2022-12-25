@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import GithubCorner from "react-github-corner"
 import { useRouter } from "next/router"
 import { NextSeo } from "next-seo"
+import clsx from "clsx"
 
 export default function Page() {
   const router = useRouter()
@@ -12,8 +13,10 @@ export default function Page() {
     },
   })
   const [error, setError] = useState<string | null>(null)
-  const [data, setData] = useState<{ video?: string } | null>(null)
+  const [data, setData] = useState<{ videos?: string[] } | null>(null)
   const onSubmit = handleSubmit(async (values) => {
+    setError(null)
+    setData(null)
     router.push({ query: { ...router.query, url: values.url } })
     const res = await fetch(
       `/api/twitter?${new URLSearchParams({ url: values.url }).toString()}`
@@ -26,7 +29,7 @@ export default function Page() {
   const useSample = () => {
     setValue(
       "url",
-      "https://twitter.com/mischiefanimals/status/1600947154193117184"
+      "https://twitter.com/Hong_Doo_JV2/status/1606904304014884864"
     )
     onSubmit()
   }
@@ -90,12 +93,31 @@ export default function Page() {
         </form>
         {data && (
           <div>
-            {data.video ? (
-              <>
-                <video controls className="w-full max-h-[500px] bg-black">
-                  <source src={data.video}></source>
-                </video>
-              </>
+            {data.videos && data.videos.length > 0 ? (
+              <div>
+                <div className="mb-3 font-bold text-center">
+                  Found {data.videos.length}{" "}
+                  {data.videos.length > 1 ? "videos" : "video"}
+                </div>
+                <div
+                  className={clsx(
+                    "grid gap-4",
+                    data.videos.length > 2 && "md:grid-cols-2"
+                  )}
+                >
+                  {data.videos.map((video, i) => {
+                    return (
+                      <video
+                        key={i}
+                        controls
+                        className="w-full max-h-[500px] bg-black"
+                      >
+                        <source src={video}></source>
+                      </video>
+                    )
+                  })}
+                </div>
+              </div>
             ) : (
               <div className="text-orange-500 text-center">
                 No video found in this tweet
