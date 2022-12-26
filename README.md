@@ -1,6 +1,6 @@
 # Download Twitter Video
 
-https://download-twitter-video.egoist.dev
+https://twdown.egoist.dev
 
 ## License
 
