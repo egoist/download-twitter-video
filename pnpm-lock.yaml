@@ -4,6 +4,7 @@ specifiers:
   '@types/downloadjs': ^1.4.3
   '@types/node': ^18.11.12
   '@types/react': ^18.0.26
+  '@vercel/analytics': ^0.1.6
   autoprefixer: ^10.4.13
   cheerio: 1.0.0-rc.12
   clsx: ^1.2.1
@@ -20,6 +21,7 @@ specifiers:
   typescript: ^4.9.4
 
 dependencies:
+  '@vercel/analytics': 0.1.6_react@18.2.0
   cheerio: 1.0.0-rc.12
   clsx: 1.2.1
   downloadjs: 1.4.7
@@ -217,6 +219,14 @@ packages:
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
     dev: true
+
+  /@vercel/analytics/0.1.6_react@18.2.0:
+    resolution: {integrity: sha512-zNd5pj3iDvq8IMBQHa1YRcIteiw6ZiPB8AsONHd8ieFXlNpLqhXfIYnf4WvTfZ7S1NSJ++mIM14aJnNac/VMXQ==}
+    peerDependencies:
+      react: ^16.8||^17||^18
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /acorn-node/1.8.2:
     resolution: {integrity: sha512-8mt+fslDufLYntIoPAaIMUe/lrbrehIiwmR3t2k9LljIzoigEPF27eLk2hy8zSGzmR/ogr7zbRKINMo1u0yh5A==}
